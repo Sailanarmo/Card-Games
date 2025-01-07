@@ -21,6 +21,7 @@ namespace Poker
       auto DisplayTable() -> void;
       auto HandleCard(Card&& card) -> void;
       auto ReturnCards() -> std::vector<Card>;
+      auto GetCards() const -> std::array<const Deck::Card*,5>;
 
     private:
       std::array<Card,5> m_cards;

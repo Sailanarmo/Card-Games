@@ -9,10 +9,10 @@ namespace Deck
     public:
       Card(const Suite suite, const Rank rank);
 
-      auto Face() -> Suite const;
-      auto Value() -> Rank const;
-      auto FaceName() -> std::string_view const;
-      auto RankName() -> std::string_view const;
+      auto Face() const -> Suite;
+      auto Value() const -> Rank;
+      auto FaceName() const -> std::string_view;
+      auto RankName() const -> std::string_view;
 
     private:
       const Suite m_suite;

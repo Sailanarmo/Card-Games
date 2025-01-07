@@ -55,4 +55,9 @@ namespace Poker
 
     return toReturn;
   }
+
+  auto PokerTable::GetCards() const -> std::array<const Deck::Card*,5>
+  {
+    return std::array<const Deck::Card*,5>{ m_cards[0].get(), m_cards[1].get(), m_cards[2].get(), m_cards[3].get(), m_cards[4].get() };
+  }
 };

@@ -22,9 +22,14 @@ namespace Poker
     return std::make_pair(std::move(m_hand.first), std::move(m_hand.second));
   }
 
-  auto PokerPlayer::Name() -> std::string_view const 
+  auto PokerPlayer::Name() const -> std::string_view
   {
     return m_name;
+  }
+
+  auto PokerPlayer::GetHand() const -> std::pair<const Deck::Card *, const Deck::Card *>
+  {
+      return std::pair<const Deck::Card *, const Deck::Card *>(m_hand.first.get(),m_hand.second.get());
   }
 
   auto PokerPlayer::PrintPlayerInfo() -> void

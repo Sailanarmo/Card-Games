@@ -24,7 +24,8 @@ namespace Poker
 
       auto UpdateHand(Card&& cardA, Card&& cardB) -> void;
       auto ReturnCards() -> std::pair<Card,Card>;
-      auto Name() -> std::string_view const override;
+      auto Name() const -> std::string_view override;
+      auto GetHand() const -> std::pair<const Deck::Card*, const Deck::Card*>;
 
 
       // For debugging

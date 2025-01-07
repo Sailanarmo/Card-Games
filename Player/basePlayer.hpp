@@ -10,7 +10,7 @@ namespace Player
     public:
       BasePlayer(const std::string_view name) : m_name(name){}
 
-      virtual auto Name() -> std::string_view const = 0;
+      virtual auto Name() const -> std::string_view = 0;
 
     protected:
       const std::string m_name;
