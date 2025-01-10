@@ -45,9 +45,10 @@ namespace Poker
     std::vector<Card> toReturn;
 
     // This should set to nullptr automatically because of move semantics.
-    std::ranges::transform(m_cards, std::back_inserter(toReturn),[](auto&& card){
+    std::ranges::transform(m_cards, std::back_inserter(toReturn),[](auto&& card) -> Card {
       if(card != nullptr)
         return std::move(card);
+      return Card(); // Return a default-constructed Card if card is nullptr
     });
 
     // Reset the position to 0

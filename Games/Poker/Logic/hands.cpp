@@ -189,9 +189,8 @@ namespace Poker
       
       if(isFlush)
         return Weight::Flush;
-      
-      return Weight::High;
     }
+    return Weight::High;
   }
 
   auto HandParser::FindFlush(const std::array<const Deck::Card *, 7> &hand) -> bool

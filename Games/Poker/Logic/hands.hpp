@@ -16,32 +16,29 @@ namespace Deck
 namespace Poker
 {
 
-
-  using Hand = std::array<Deck::Card,5>;
-
   class HandParser
   {
     public:
       HandParser();
 
-      enum class Weight : int
+      enum class Weight : uint8_t
       {
-          High = 0,
-          Pair,
-          TwoPair,
-          ThreeOfAKind,
-          Straight,
-          Flush,
-          FullHouse,
-          FourOfAKind,
-          StraightFlush,
-          RoyalFlush
+        High = 0,
+        Pair,
+        TwoPair,
+        ThreeOfAKind,
+        Straight,
+        Flush,
+        FullHouse,
+        FourOfAKind,
+        StraightFlush,
+        RoyalFlush
       };
 
       // Generates all logical operations for us
       friend std::strong_ordering operator<=>(Weight lhs, Weight rhs)
       {
-          return static_cast<int>(lhs) <=> static_cast<int>(rhs);
+          return static_cast<uint8_t>(lhs) <=> static_cast<uint8_t>(rhs);
       }
 
       auto GetHighestRank(std::array<const Deck::Card*,7>& hand) -> Weight;
