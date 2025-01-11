@@ -4,7 +4,7 @@
 #include "Player/basePlayer.hpp"
 
 #include <memory>
-#include <stack>
+#include <vector>
 
 namespace Deck
 {
@@ -15,7 +15,7 @@ namespace GoFish
 {
 
   using Card = std::unique_ptr<Deck::Card>;
-  using Book = std::stack<Card>;
+  using Book = std::vector<Card>;
 
   class GoFishPlayer : public Player::BasePlayer
   {
@@ -27,6 +27,9 @@ namespace GoFish
       auto TakeInitialCard(Card&& card) -> void;
       auto RequestCard(const Deck::Rank rank) -> Card;
       auto GetInitialCardRank() const -> Deck::Rank;
+
+      // For Debugging
+      auto PrintHand() -> void;
 
     private:
       

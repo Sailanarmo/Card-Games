@@ -19,7 +19,7 @@ namespace GoFish
       std::println("Ocean Size: {}", m_ocean.size());
     }
 
-    auto GoFishTable::DealInitialCard() -> Card
+    auto GoFishTable::DealCard() -> Card
     {
       auto card = std::move(m_ocean.top());
       m_ocean.pop();

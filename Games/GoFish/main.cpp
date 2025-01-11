@@ -20,7 +20,7 @@ auto main() -> int
   players.push_back(std::make_unique<GoFish::GoFishPlayer>("Peter"));
 
   std::ranges::for_each(players,[&table](auto& player){
-    auto card = table->DealInitialCard();
+    auto card = table->DealCard();
     player->TakeInitialCard(std::move(card)); 
   });
 
@@ -30,13 +30,24 @@ auto main() -> int
 
   std::println("The lowest card holder is: {} with Card: {}", lowestCardHolder[0]->Name(), Deck::ToString(lowestCardHolder[0]->GetInitialCardRank()));
 
-  // Rotate the vector so that the lowest card holder is at the beginning
+  // Rotate the vector so that the lowest card holder is at the beginning and shift left.
   std::ranges::rotate(players.begin(), lowestCardHolder, players.end());
   std::ranges::reverse(players.begin() + 1, players.end());
 
   std::println("Players after rotation:");
   std::ranges::for_each(players, [](const auto& player){
-    std::println("Player: {}", player->Name());
+    std::println("Player: {} Card {}", player->Name(), Deck::ToString(player->GetInitialCardRank()));
   });
-  return 0;
+
+  std::ranges::for_each(std::views::iota(0,4),[&players,&table](const auto& i){
+    std::ranges::for_each(players,[&table](auto& player){
+      auto card = table->DealCard();
+      player->TakeInitialCard(std::move(card));
+    });
+  });
+
+  std::ranges::for_each(players,[&table](auto& player){
+      player->PrintHand();
+  });
+
 }

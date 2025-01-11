@@ -31,7 +31,7 @@ namespace GoFish
       auto HandleBook(std::stack<Card>&& book) -> void;
       auto LendOcean() -> Ocean;
       auto ReturnOcean(Ocean&& ocean) -> void;
-      auto DealInitialCard() -> Card;
+      auto DealCard() -> Card;
 
     private:
       Ocean m_ocean;

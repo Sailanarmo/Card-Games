@@ -4,6 +4,7 @@
 
 #include <ranges>
 #include <algorithm>
+#include <print>
 
 namespace GoFish
 {
@@ -33,7 +34,7 @@ namespace GoFish
   auto GoFishPlayer::AddCard(Card&& card) -> void
   {
     auto rank = card->Value();
-    m_hand[rank].push(std::move(card));
+    m_hand[rank].push_back(std::move(card));
 
     if(m_hand[rank].size() == 4)
       PlaceBook();
@@ -41,10 +42,10 @@ namespace GoFish
 
   auto GoFishPlayer::ForfeitCard(const Deck::Rank rank) -> Card
   {
-    auto card = std::move(m_hand[rank].top());
-    m_hand[rank].pop();
+    auto card = std::move(m_hand[rank].back());
+    m_hand[rank].pop_back();
 
-    // to remove the key if the stack is empty
+    // to remove the key if the vector is empty
     if(m_hand[rank].empty())
       m_hand.erase(rank);
 
@@ -57,12 +58,24 @@ namespace GoFish
 
     for(int i = 0; i < 4; i++)
     {
-      book.push(std::move(m_hand[book.top()->Value()].top()));
-      m_hand[book.top()->Value()].pop();
+      book.push_back(std::move(m_hand[book.back()->Value()].back()));
+      m_hand[book.back()->Value()].pop_back();
     }
 
-    m_hand.erase(book.top()->Value());
+    m_hand.erase(book.back()->Value());
 
     return book;
+  }
+
+  auto GoFishPlayer::PrintHand() -> void
+  {
+    std::println("Player: {}", m_name);
+    std::ranges::for_each(m_hand, [this](const auto& book){
+      std::ranges::for_each(book.second,[](const auto& card){
+        std::print("[{}-{}] ", card->RankName(), card->FaceName());
+      });
+      std::println("");
+    });
+    std::println("");
   }
 }
