@@ -19,11 +19,23 @@ namespace GoFish
       return nullptr;
   }
 
+  auto GoFishPlayer::TakeInitialCard(Card&& card) -> void
+  {
+    m_initialCardRank = card->Value();
+    AddCard(std::move(card));
+  }
+
+  auto GoFishPlayer::GetInitialCardRank() const -> Deck::Rank
+  {
+    return m_initialCardRank;
+  }
+
   auto GoFishPlayer::AddCard(Card&& card) -> void
   {
-    m_hand[card->Value()].push(std::move(card));
+    auto rank = card->Value();
+    m_hand[rank].push(std::move(card));
 
-    if(m_hand[card->Value()].size() == 4)
+    if(m_hand[rank].size() == 4)
       PlaceBook();
   }
 
@@ -37,5 +49,20 @@ namespace GoFish
       m_hand.erase(rank);
 
     return card;
+  }
+
+  auto GoFishPlayer::PlaceBook() -> Book
+  {
+    auto book = Book();
+
+    for(int i = 0; i < 4; i++)
+    {
+      book.push(std::move(m_hand[book.top()->Value()].top()));
+      m_hand[book.top()->Value()].pop();
+    }
+
+    m_hand.erase(book.top()->Value());
+
+    return book;
   }
 }

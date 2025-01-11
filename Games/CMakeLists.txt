@@ -1,3 +1,4 @@
+add_subdirectory(GoFish)
 add_subdirectory(Poker)
 
 #project(TestGame)

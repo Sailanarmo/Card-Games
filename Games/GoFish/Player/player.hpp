@@ -24,12 +24,15 @@ namespace GoFish
       ~GoFishPlayer() = default;
 
       auto Name() const -> std::string_view override { return m_name; }
+      auto TakeInitialCard(Card&& card) -> void;
       auto RequestCard(const Deck::Rank rank) -> Card;
+      auto GetInitialCardRank() const -> Deck::Rank;
 
     private:
       
       // A map to a Book of Cards of that Rank. Maybe vector would be better?
       std::unordered_map<Deck::Rank, Book> m_hand;
+      Deck::Rank m_initialCardRank;
 
       auto AddCard(Card&& card) -> void;
       auto ForfeitCard(const Deck::Rank rank) -> Card;
